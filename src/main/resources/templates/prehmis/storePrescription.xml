@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                  xmlns:preh="$xmlnsPreh">
+    <soapenv:Header>
+        <preh:AuthHeaderElement>
+            <username>${username}</username>
+            <password>${password}</password>
+            <facility_code>${facilityCode}</facility_code>
+            <application_key>${applicationKey}</application_key>
+        </preh:AuthHeaderElement>
+    </soapenv:Header>
+    <soapenv:Body>
+        <preh:storePrescription>
+            <prescription>
+                <id>${prescription.id}</id>
+                <prehmis_patient_id>${prescription.prehmisPatientId}</prehmis_patient_id><% if (prescription.pgwcPatientNumber != null) { %>
+                <pgwc_patient_number>${prescription.pgwcPatientNumber}</pgwc_patient_number><% } %><% if (prescription.patientSaIdNumber != null) { %>
+                <patient_sa_id_number>${prescription.patientSaIdNumber}</patient_sa_id_number><% } %>
+                <practitioner_code>${prescription.practitionerCode}</practitioner_code>
+                <prescription_date>${prescription.prescriptionDate}</prescription_date>
+                <duration>${prescription.duration}</duration>
+                <end_date>${prescription.endDate}</end_date>
+                <change_reason>${prescription.changeReason}</change_reason>
+            </prescription>
+            <prescriptionDrugs><% prescription.prescribedMedications.each { prescribedMedication -> %>
+                <item>
+                    <atc_code>${prescribedMedication.atcCode}</atc_code>
+                    <amount_per_time>${prescribedMedication.amountPerTime}</amount_per_time>
+                    <times_per_day>${prescribedMedication.timesPerDay}</times_per_day>
+                </item>
+            <% } %></prescriptionDrugs>
+        </preh:storePrescription>
+    </soapenv:Body>
+</soapenv:Envelope>

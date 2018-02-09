@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                  xmlns:preh="$xmlnsPreh">
+    <soapenv:Header>
+        <preh:AuthHeaderElement>
+            <username>$username</username>
+            <password>$password</password>
+            <facility_code>$facilityCode</facility_code>
+            <application_key>$applicationKey</application_key>
+        </preh:AuthHeaderElement>
+    </soapenv:Header>
+    <soapenv:Body>
+        <preh:getPatient>
+            <AuthHeader/>
+            <nr>$patientIdentifierValue</nr>
+            <identifier>$patientIdentifierType</identifier>
+        </preh:getPatient>
+    </soapenv:Body>
+</soapenv:Envelope>

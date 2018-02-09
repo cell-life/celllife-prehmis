@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                  xmlns:preh="$xmlnsPreh">
+    <soapenv:Header>
+        <preh:AuthHeaderElement>
+            <username>${username}</username>
+            <password>${password}</password>
+            <facility_code>${facilityCode}</facility_code>
+            <application_key>${applicationKey}</application_key>
+        </preh:AuthHeaderElement>
+    </soapenv:Header>
+    <soapenv:Body>
+        <preh:deletePrescription>
+            <prescription>
+                <id>${prescription.id}</id>
+                <prehmis_patient_id>${prescription.prehmisPatientId}</prehmis_patient_id><% if (prescription.pgwcPatientNumber != null) { %>
+                <pgwc_patient_number>${prescription.pgwcPatientNumber}</pgwc_patient_number><% } %><% if (prescription.patientSaIdNumber != null) { %>
+                <patient_sa_id_number>${prescription.patientSaIdNumber}</patient_sa_id_number><% } %>
+                <practitioner_code>${prescription.practitionerCode}</practitioner_code>
+                <prescription_date>${prescription.prescriptionDate}</prescription_date>
+                <duration>${prescription.duration}</duration>
+                <end_date>${prescription.endDate}</end_date>
+                <change_reason>${prescription.changeReason}</change_reason>
+            </prescription>
+        </preh:deletePrescription>
+    </soapenv:Body>
+</soapenv:Envelope>

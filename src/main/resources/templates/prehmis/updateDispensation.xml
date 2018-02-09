@@ -1,0 +1,30 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:preh="$xmlnsPreh">
+    <soapenv:Header>
+        <preh:AuthHeaderElement>
+            <username>${username}</username>
+            <password>${password}</password>
+            <facility_code>${facilityCode}</facility_code>
+            <application_key>${applicationKey}</application_key>
+        </preh:AuthHeaderElement>
+    </soapenv:Header>
+    <soapenv:Body>
+        <preh:updateDispensation>
+            <dispensation>
+                <id>${dispensation.id}</id>
+                <prehmis_patient_id>${dispensation.prehmisPatientId}</prehmis_patient_id><% if (dispensation.pgwcPatientNumber != null) { %>
+                <pgwc_patient_number>${dispensation.pgwcPatientNumber}</pgwc_patient_number><% } %><% if (dispensation.patientSaIdNumber != null) { %>
+                <patient_sa_id_number>${dispensation.patientSaIdNumber}</patient_sa_id_number><% } %>
+                <prescription_id>${dispensation.prescription}</prescription_id>
+                <dispensing_date>${dispensation.dispensationDate}</dispensing_date>
+                <practitioner_code>${dispensation.practitionerCode}</practitioner_code>
+                <supply_duration>${dispensation.supplyDuration}</supply_duration>
+            </dispensation>
+            <dispensationDrugs><% dispensation.dispensedMedications.each { dispensedMedication -> %>
+                <item>
+                    <atc_code>${dispensedMedication.atcCode}</atc_code>
+                    <quantity>${dispensedMedication.quantity}</quantity>
+                </item>
+            <% } %></dispensationDrugs>
+        </preh:updateDispensation>
+    </soapenv:Body>
+</soapenv:Envelope> 
